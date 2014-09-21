@@ -1,0 +1,57 @@
+head	1.2;
+access;
+symbols;
+locks
+	bill:1.2; strict;
+comment	@# @;
+expand	@o@;
+
+
+1.2
+date	2014.09.21.19.55.34;	author bill;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2014.09.21.19.55.04;	author bill;	state Exp;
+branches;
+next	;
+
+
+desc
+@vim
+@
+
+
+1.2
+log
+@vim
+@
+text
+@Initial public release.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   ChangeLog
+#	new file:   Makefile
+#	new file:   README
+#	new file:   gpsread.1
+#	new file:   gpsread.c
+#	new file:   gpsread.conf
+#	new file:   gpsread.h
+#
+@
+
+
+1.1
+log
+@vim
+@
+text
+@d1 1
+@

@@ -1,0 +1,63 @@
+.TH GPSREAD "1" "SEPTEMBER 2014" "gpsread 0.8" "User Commands"
+.SH NAME
+gpsread \- read the current position from a serial GPS dongle
+.SH SYNOPSIS
+.B gpsread
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+Retrieve the NEMA data from a serial GPS dongle and convert and display the current position.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display the help text and exit.
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Display version information and exit.
+.TP
+\fB\-t\fR, \fB\-\-timeout\fR
+How long, in seconds, to try to read data from the GPS.
+.TP
+\fB\-b\fR, \fB\-\-baudrate\fR
+Set the baudrate. Usually 4800.
+.TP
+\fB\-d\fR, \fB\-\-device\fR
+Serial terminal device for the GPS.
+.TP
+\fB\-u\fR, \fB\-\-units\fR
+Units for displaying the GPS data. Valid values are:
+.br
+TIME       The UTC time.
+.br
+NEMA       Raw NEMA sentences.
+.br
+LLMINSEC   LatLon with degrees, minutes, seconds.
+.br
+LLMINDEC   LatLon with degrees, minutes with decimal fraction.
+.br
+LLDECIMAL  LatLon with degrees with decimal fraction.
+.SH FILES
+Configuration files are loaded in order, /etc/gpsread.conf then ~/.gpsreadrc
+The system-wide configuration file overrides compile-time defaults. The user configuration file overrides
+the system-wide configuration, and finnaly the command line options override that.
+.SH NOTES
+This has been tested with a ND-100s on OSX 10.6, Linux Mint 16 and Raspian-20140620.
+.SH TODO
+UTM and OSGB position reporting.
+.br
+Package for OpenWRT.
+.br
+Test with a Garmin GPS12.
+.SH WARNING
+This has been tested on 1 dongle, on 3 differnet operating systems, at 1 location.
+I wouldn't use it for your-life-may-depend-on-it navigation, and you shouldn't either.
+.SH "REPORTING BUGS"
+Report bugs to: bugs@wbh.org
+.br
+GPSread home page: <http://wbh.org/code/gpsread>
+.SH COPYRIGHT
+Copyright \(co 2014 W.B.Hill <mail@wbh.org>
+.br
+License, dual. Either GPLv2 or BSD 2 clause, as appropriate.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
