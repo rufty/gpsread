@@ -128,6 +128,7 @@ map_posunit ( const char* value )
   {
   if ( !strcasecmp ( value, posunit_names[TIME] ) ) return TIME ;
   else if ( !strcasecmp ( value, posunit_names[NEMA] ) ) return NEMA ;
+  else if ( !strcasecmp ( value, posunit_names[OSGB] ) ) return OSGB ;
   else if ( !strcasecmp ( value, posunit_names[LLMINSEC] ) ) return LLMINSEC ;
   else if ( !strcasecmp ( value, posunit_names[LLMINDEC] ) ) return LLMINDEC ;
   else if ( !strcasecmp ( value, posunit_names[LLDECIMAL] ) ) return LLDECIMAL ;
@@ -488,6 +489,8 @@ main ( int argc, char* argv[] )
   free ( gpsterm ) ;
   // Show the data.
   double latt, lats, lont, lons ;
+  char z[3] ;
+  long e, n ;
   switch ( posunit )
     {
     case TIME :
@@ -495,6 +498,10 @@ main ( int argc, char* argv[] )
       break ;
     case NEMA :
       printf ( "$%s\n", raw ) ;
+      break ;
+    case OSGB :
+      LLtoOSGB ( latd + latm / 60.0, lond + lonm / 60.0, z, &e, &n ) ;
+      printf ( "[%s][%05ld][%05ld]\n", z, e, n ) ;
       break ;
     case LLMINSEC :
       lats = 60.0 * modf ( latm, &latt ) ;

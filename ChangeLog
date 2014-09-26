@@ -1,6 +1,9 @@
 ChangeLog for gpsread.
 =====================
 
+0.9 gpsread-20140926
+	Added OSGB output units.
+
 0.8 gpsread-20140921
-  Initial public release.
+	Initial public release.
 	W.B.Hill <mail@wbh.org>
