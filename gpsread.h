@@ -8,7 +8,7 @@ const char* posunit_names[] = { "INVALID", "TIME", "NEMA", "OSGB", "LLMINSEC", "
 
 // Set compile-time defaults.
 #define TIMEOUT 15
-#define GPSBAUD 4800
+#define GPSBAUD B4800
 #define POSUNIT LLDECIMAL
 #if __APPLE__
   #define GPSTERM "/dev/tty.usbserial"

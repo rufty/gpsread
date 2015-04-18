@@ -1,6 +1,9 @@
 ChangeLog for gpsread.
 =====================
 
+0.9.1 gpsread-20150418
+        Bugfix for baud rate setting.
+
 0.9 gpsread-20140926
 	Added OSGB output units.
 

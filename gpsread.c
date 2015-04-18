@@ -94,28 +94,42 @@ sighandler ( int sig )
   }
 
 
-// Check the baud rate is OK.
+// Convert and check the baud rate is OK.
 int
-is_valid_baud ( int br )
+valid_baud ( int br )
   {
   switch ( br )
     {
     case 50 :
+      return B50 ;
     case 75 :
+      return B75 ;
     case 110 :
+      return B110 ;
     case 134 :
+      return B134 ;
     case 150 :
+      return B150 ;
     case 200 :
+      return B200 ;
     case 300 :
+      return B300 ;
     case 600 :
+      return B600 ;
     case 1200 :
+      return B1200 ;
     case 1800 :
+      return B1800 ;
     case 2400 :
+      return B2400 ;
     case 4800 :
+      return B4800 ;
     case 9600 :
+      return B9600 ;
     case 19200 :
+      return B19200 ;
     case 38400 :
-      return 0 ;
+      return B38400 ;
     default :
       return -1 ;
     }
@@ -156,7 +170,7 @@ validate_baud ( cfg_t* cfg, cfg_opt_t* opt )
   {
   int value ;
   value = cfg_opt_getnint ( opt, 0 ) ;
-  if ( is_valid_baud ( value ) )
+  if ( valid_baud ( value ) == -1 )
     {
     cfg_error ( cfg, "Invalid baudrate." ) ;
     return -1 ;
@@ -298,11 +312,8 @@ main ( int argc, char* argv[] )
         timeout = (int) strtol ( optarg, (char **)NULL, 10 ) ;
         break ;
       case 'b' :
-        if ( !is_valid_baud ( (int) strtol ( optarg, (char **)NULL, 10 ) ) )
-          {
-          gpsbaud = (int) strtol ( optarg, (char **)NULL, 10 ) ;
-          }
-        else
+        gpsbaud = valid_baud ( (int) strtol ( optarg, (char **)NULL, 10 ) ) ;
+        if ( gpsbaud == -1  )
           {
           fprintf ( stderr, "Invalid baudrate: %s\n", optarg ) ;
           exit ( EXIT_FAILURE ) ;

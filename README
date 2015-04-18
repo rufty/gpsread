@@ -14,7 +14,7 @@ will install $(PREFIX)/bin/gpsread and $(PREFIX)/man/man1/gpsread.1.gz
 A typical NEMA sentence that this utility expects:
   $GPGGA,170643.000,5237.7238,N,00115.1283,E,1,04,7.4,26.1,M,47.0,M,,0000*6A
 
-This has been tested on 1 dongle, on 3 differnet operating systems, at 1 location.
+This has been tested on 1 dongle, on 4 different operating systems, at 3 locations.
 I wouldn't use it for your-life-may-depend-on-it navigation, and you shouldn't either.
 
 W.B.Hill <mail@wbh.org> 20140921
