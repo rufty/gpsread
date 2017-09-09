@@ -1,8 +1,9 @@
 ChangeLog for gpsread.
 =====================
 
-0.9.2 gpsread-20170909
-        Bugfix for display of baudrate in usage() and help() messages.
+0.9.3 gpsread-20170909
+        Fixed a typo.
+0.9.2   Bugfix for display of baudrate in usage() and help() messages.
         Added RadioHams' Maidenhead grid units.
 
 0.9.1 gpsread-20150418

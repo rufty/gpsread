@@ -153,7 +153,7 @@ posunit_t
 map_posunit ( const char* value )
   {
   if ( !strcasecmp ( value, posunit_names[TIME] ) ) return TIME ;
-  else if ( !strcasecmp ( value, posunit_names[NEMA] ) ) return NEMA ;
+  else if ( !strcasecmp ( value, posunit_names[NMEA] ) ) return NMEA ;
   else if ( !strcasecmp ( value, posunit_names[OSGB] ) ) return OSGB ;
   else if ( !strcasecmp ( value, posunit_names[MHEAD] ) ) return MHEAD ;
   else if ( !strcasecmp ( value, posunit_names[LLMINSEC] ) ) return LLMINSEC ;
@@ -550,7 +550,7 @@ main ( int argc, char* argv[] )
     case TIME :
       printf ( "%s\n", utctime ) ;
       break ;
-    case NEMA :
+    case NMEA :
       printf ( "$%s\n", raw ) ;
       break ;
     case OSGB :

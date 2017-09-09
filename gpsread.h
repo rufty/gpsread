@@ -3,8 +3,8 @@
 
 
 // Valid position units.
-typedef enum { INVALID=0, TIME, NEMA, OSGB, MHEAD, LLMINSEC, LLMINDEC, LLDECIMAL } posunit_t ;
-const char* posunit_names[] = { "INVALID", "TIME", "NEMA", "OSGB", "MHEAD", "LLMINSEC", "LLMINDEC", "LLDECIMAL" } ;
+typedef enum { INVALID=0, TIME, NMEA, OSGB, MHEAD, LLMINSEC, LLMINDEC, LLDECIMAL } posunit_t ;
+const char* posunit_names[] = { "INVALID", "TIME", "NMEA", "OSGB", "MHEAD", "LLMINSEC", "LLMINDEC", "LLDECIMAL" } ;
 
 // Set compile-time defaults.
 #define TIMEOUT 15
