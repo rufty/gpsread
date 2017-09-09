@@ -20,7 +20,7 @@
 /****************************************************************************************************************************************************/
 
 // gcc -o gpsread gpsread.c -lintl -lconfuse
-// New arguments need to be added where tagged 'ADDARGS'.
+// New arguments need to be added where tagged 'ADDARG'.
 
 // Standard infrastructure
 #define _GNU_SOURCE
@@ -52,36 +52,6 @@
 #define _STR(S) #S
 
 
-// Show terse info. ADDARG
-void
-usage ( char* appname )
-  {
-  printf ( "Usage: %s -t%d -b%d -d%s -u%s\n", appname, TIMEOUT, GPSBAUD, GPSTERM, STR(POSUNIT) ) ;
-  }
-
-
-// Show version info.
-void
-version ( char* appname )
-  {
-  printf ( "%s v%s, W.B.Hill <mail@wbh.org>, 19 Sept 2014\n", appname, STR(VERSION) ) ;
-  }
-
-
-// Show some help. ADDARG
-void
-help ( char* appname )
-  {
-  printf ( "Usage: %s [option] ...\n", appname ) ;
-  printf ( "\t-h,--help     This help.\n" ) ;
-  printf ( "\t-t,--timeout  Time to wait for GPS in seconds, default %ds\n", TIMEOUT ) ;
-  printf ( "\t-b,--baudrate GPS device baudrate. Default %d\n", GPSBAUD ) ;
-  printf ( "\t-d,--device   GPS tty device. Default %s\n", GPSTERM ) ;
-  printf ( "\t-u,--units    Units to show position in. Default %s\n", STR(POSUNIT) ) ;
-  printf ( "%s v%s, W.B.Hill <mail@wbh.org>, 19 Sept 2014\n", appname, STR(VERSION) ) ;
-  }
-
-
 // Die if we hit the timeout.
 void
 sighandler ( int sig )
@@ -90,6 +60,48 @@ sighandler ( int sig )
     {
     fprintf ( stderr, "Timed out trying to read GPS.\n" ) ;
     exit ( EXIT_FAILURE ) ;
+    }
+  }
+
+
+// Map a baudrate to a number.
+int
+map_baud ( int br )
+  {
+  switch ( br )
+    {
+    case B50 :
+      return 50 ;
+    case B75 :
+      return 75 ;
+    case B110 :
+      return 110 ;
+    case B134 :
+      return 134 ;
+    case B150 :
+      return 150 ;
+    case B200 :
+      return 200 ;
+    case B300 :
+      return 300 ;
+    case B600 :
+      return 600 ;
+    case B1200 :
+      return 1200 ;
+    case B1800 :
+      return 1800 ;
+    case B2400 :
+      return 2400 ;
+    case B4800 :
+      return 4800 ;
+    case B9600 :
+      return 9600 ;
+    case B19200 :
+      return 19200 ;
+    case B38400 :
+      return 38400 ;
+    default :
+      return -1 ;
     }
   }
 
@@ -143,6 +155,7 @@ map_posunit ( const char* value )
   if ( !strcasecmp ( value, posunit_names[TIME] ) ) return TIME ;
   else if ( !strcasecmp ( value, posunit_names[NEMA] ) ) return NEMA ;
   else if ( !strcasecmp ( value, posunit_names[OSGB] ) ) return OSGB ;
+  else if ( !strcasecmp ( value, posunit_names[MHEAD] ) ) return MHEAD ;
   else if ( !strcasecmp ( value, posunit_names[LLMINSEC] ) ) return LLMINSEC ;
   else if ( !strcasecmp ( value, posunit_names[LLMINDEC] ) ) return LLMINDEC ;
   else if ( !strcasecmp ( value, posunit_names[LLDECIMAL] ) ) return LLDECIMAL ;
@@ -228,6 +241,36 @@ parse_posunit ( cfg_t* cfg, cfg_opt_t* opt, const char* value, void* result )
     free ( *(void**) result ) ;
     return 1 ;
     }
+  }
+
+
+// Show terse info. ADDARG
+void
+usage ( char* appname )
+  {
+  printf ( "Usage: %s -t%d -b%d -d%s -u%s\n", appname, TIMEOUT, map_baud(GPSBAUD), GPSTERM, STR(POSUNIT) ) ;
+  }
+
+
+// Show version info.
+void
+version ( char* appname )
+  {
+  printf ( "%s v%s, W.B.Hill <mail@wbh.org>, 19 Sept 2014\n", appname, STR(VERSION) ) ;
+  }
+
+
+// Show some help. ADDARG
+void
+help ( char* appname )
+  {
+  printf ( "Usage: %s [option] ...\n", appname ) ;
+  printf ( "\t-h,--help     This help.\n" ) ;
+  printf ( "\t-t,--timeout  Time to wait for GPS in seconds, default %ds\n", TIMEOUT ) ;
+  printf ( "\t-b,--baudrate GPS device baudrate. Default %d\n", map_baud(GPSBAUD) ) ;
+  printf ( "\t-d,--device   GPS tty device. Default %s\n", GPSTERM ) ;
+  printf ( "\t-u,--units    Units to show position in. Default %s\n", STR(POSUNIT) ) ;
+  printf ( "%s v%s, W.B.Hill <mail@wbh.org>, 19 Sept 2014\n", appname, STR(VERSION) ) ;
   }
 
 
@@ -513,6 +556,21 @@ main ( int argc, char* argv[] )
     case OSGB :
       LLtoOSGB ( latd + latm / 60.0, lond + lonm / 60.0, z, &e, &n ) ;
       printf ( "[%s][%05ld][%05ld]\n", z, e, n ) ;
+      break ;
+    case MHEAD :
+      latt =  90.0 + latd + latm / 60.0 ;
+      lont = 180.0 + lond + lonm / 60.0 ;
+      printf ( "%c", 'A' + (int) floor ( lont / 20.0 ) ) ;
+      printf ( "%c", 'A' + (int) floor ( latt / 10.0 ) ) ;
+      lont -= 20.0 * floor ( lont / 20.0 ) ;
+      printf ( "%d", (int) floor ( lont / 2.0 ) ) ;
+      latt -= 10.0 * floor ( latt / 10.0 ) ;
+      printf ( "%d", (int) floor ( latt ) ) ;
+      lont -= 2.0 * floor ( lont / 2.0 ) ;
+      printf ( "%c", 'a' + (int) floor ( 12.0 * lont ) ) ;
+      latt -= 1.0 * floor ( latt / 1.0 ) ;
+      printf ( "%c", 'a' + (int) floor ( 24.0 * latt ) ) ;
+      printf ( "\n" ) ;
       break ;
     case LLMINSEC :
       lats = 60.0 * modf ( latm, &latt ) ;

@@ -2,7 +2,7 @@
 ##RCSdate:    $Date: 2014/06/11 21:10:10 $
 
 APPNAME=gpsread
-VERSION=0.9.1
+VERSION=0.9.2
 
 # Where to install.
 PREFIX=/usr/local
